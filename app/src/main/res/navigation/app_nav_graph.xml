@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/fragment_hero_list"
-        android:name="com.example.marvelcharacters.HeroListFragment" />
+        android:name="com.example.marvelcharacters.ui.herolist.HeroListFragment" />
 
 </navigation>
