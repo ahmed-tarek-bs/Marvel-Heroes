@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface HeroesService {
+interface HeroService {
 
     @GET("http://gateway.marvel.com/v1/public/characters")
     suspend fun getHeroesList(
@@ -16,7 +16,7 @@ interface HeroesService {
         @Query("apikey") apikey: String = "e959b603bcec131723e4e651784ad340",
         @Query("hash") hash: String = "2e25bc2d763f933b6f616bd4d0b76023",
         @Query("offset") offset: Int
-    ): Response<BaseResponse<PaginatedDataDTO<List<HeroDTO>>>>
+    ): Response<BaseResponse<PaginatedDataDTO<HeroDTO>>>
 
     @GET("http://gateway.marvel.com/v1/public/characters/{characterId}")
     suspend fun getHeroDetails(
@@ -25,6 +25,6 @@ interface HeroesService {
         @Query("apikey") apikey: String = "e959b603bcec131723e4e651784ad340",
         @Query("hash") hash: String = "2e25bc2d763f933b6f616bd4d0b76023",
         @Query("offset") offset: Int = 0
-    ): Response<BaseResponse<PaginatedDataDTO<List<HeroDTO>>>>
+    ): Response<BaseResponse<PaginatedDataDTO<HeroDTO>>>
 
 }
