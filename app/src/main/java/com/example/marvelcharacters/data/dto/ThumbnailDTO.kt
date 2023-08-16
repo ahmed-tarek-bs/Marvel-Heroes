@@ -8,7 +8,7 @@ data class ThumbnailDTO(
 ) {
 
     fun getImageUrl(): String? {
-        return path?.plus("/landscape_incredible.${extension ?: "jpg"}")
+        return path?.plus("/standard_incredible.${extension ?: "jpg"}")
     }
 
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
+    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin") //Hilt
     kotlin("kapt") //Hilt (Keep this the last item in the list)
 }

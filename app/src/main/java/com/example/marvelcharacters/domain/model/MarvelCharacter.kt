@@ -1,5 +1,9 @@
 package com.example.marvelcharacters.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MarvelCharacter(
     val id: Int?,
     val name: String?,
@@ -9,7 +13,7 @@ data class MarvelCharacter(
     val series: List<String>?,
     val stories: List<String>?,
     val events: List<String>?
-)
+) : Parcelable
 
 
 
