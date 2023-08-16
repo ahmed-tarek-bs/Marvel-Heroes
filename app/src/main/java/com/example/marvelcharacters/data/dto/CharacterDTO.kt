@@ -1,9 +1,9 @@
 package com.example.marvelcharacters.data.dto
 
-import com.example.marvelcharacters.domain.model.MarvelHero
+import com.example.marvelcharacters.domain.model.MarvelCharacter
 import com.google.gson.annotations.SerializedName
 
-data class HeroDTO(
+data class CharacterDTO(
 
     @SerializedName("id") val id: Int? = null,
     @SerializedName("name") val name: String? = null,
@@ -18,8 +18,8 @@ data class HeroDTO(
 
 ) {
 
-    fun mapToMarvelHero(): MarvelHero {
-        return MarvelHero(
+    fun mapToMarvelHero(): MarvelCharacter {
+        return MarvelCharacter(
             id = id,
             name = name,
             description = description,

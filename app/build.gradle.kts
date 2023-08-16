@@ -81,7 +81,7 @@ dependencies {
         //exclude Kotlin stdLib to avoid conflicts with version used by the app.
         exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
     }
-    implementation("io.coil-kt:coil-gif:2.4.0")
+    implementation("io.coil-kt:coil:2.4.0")
 
 
     //Hilt >>>> DON"T FORGET to use Hilt plugins too

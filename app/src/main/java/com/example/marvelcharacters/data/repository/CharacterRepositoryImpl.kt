@@ -5,16 +5,16 @@ import com.example.marvelcharacters.core.network.createErrorResource
 import com.example.marvelcharacters.core.network.createSuccessResource
 import com.example.marvelcharacters.core.utils.AppError
 import com.example.marvelcharacters.core.utils.Resource
-import com.example.marvelcharacters.data.datasource.HeroRemoteDataSource
-import com.example.marvelcharacters.domain.model.MarvelHero
-import com.example.marvelcharacters.domain.repository.HeroRepository
+import com.example.marvelcharacters.data.datasource.CharacterRemoteDataSource
+import com.example.marvelcharacters.domain.model.MarvelCharacter
+import com.example.marvelcharacters.domain.repository.CharacterRepository
 
-class HeroRepositoryImpl(
-    private val remoteDataSource: HeroRemoteDataSource
-) : HeroRepository {
+class CharacterRepositoryImpl(
+    private val remoteDataSource: CharacterRemoteDataSource
+) : CharacterRepository {
 
-    override suspend fun getHeroesList(): Resource<List<MarvelHero>> {
-        return when (val networkResult = remoteDataSource.getHeroesList()) {
+    override suspend fun getCharactersList(): Resource<List<MarvelCharacter>> {
+        return when (val networkResult = remoteDataSource.getCharactersList()) {
 
             is NetworkResult.ApiError -> networkResult.createErrorResource()
 
@@ -26,8 +26,8 @@ class HeroRepositoryImpl(
         }
     }
 
-    override suspend fun getHero(characterId: String): Resource<MarvelHero?> {
-        return when (val networkResult = remoteDataSource.getHeroesList()) {
+    override suspend fun getCharacter(characterId: String): Resource<MarvelCharacter?> {
+        return when (val networkResult = remoteDataSource.getCharactersList()) {
 
             is NetworkResult.ApiError -> networkResult.createErrorResource()
 

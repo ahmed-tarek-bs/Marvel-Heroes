@@ -1,10 +1,10 @@
 package com.example.marvelcharacters.di
 
-import com.example.marvelcharacters.data.datasource.HeroApi
-import com.example.marvelcharacters.data.datasource.HeroRemoteDataSource
-import com.example.marvelcharacters.data.repository.HeroRepositoryImpl
-import com.example.marvelcharacters.data.service.HeroService
-import com.example.marvelcharacters.domain.repository.HeroRepository
+import com.example.marvelcharacters.data.datasource.CharacterApi
+import com.example.marvelcharacters.data.datasource.CharacterRemoteDataSource
+import com.example.marvelcharacters.data.repository.CharacterRepositoryImpl
+import com.example.marvelcharacters.data.service.CharacterService
+import com.example.marvelcharacters.domain.repository.CharacterRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,17 +17,17 @@ class ViewModelModule {
 
     @Provides
     fun provideHeroRepository(
-        dataSource: HeroRemoteDataSource
-    ): HeroRepository = HeroRepositoryImpl(dataSource)
+        dataSource: CharacterRemoteDataSource
+    ): CharacterRepository = CharacterRepositoryImpl(dataSource)
 
     @Provides
     fun provideHeroRemoteDataSource(
-        service: HeroService
-    ): HeroRemoteDataSource = HeroApi(service)
+        service: CharacterService
+    ): CharacterRemoteDataSource = CharacterApi(service)
 
     @Provides
     fun provideHeroService(
         retrofitClient: Retrofit
-    ): HeroService = retrofitClient.create(HeroService::class.java)
+    ): CharacterService = retrofitClient.create(CharacterService::class.java)
 
 }
