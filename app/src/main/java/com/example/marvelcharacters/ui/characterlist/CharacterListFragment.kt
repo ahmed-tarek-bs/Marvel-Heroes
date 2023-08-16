@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.marvelcharacters.R
 import com.example.marvelcharacters.core.base.BaseFragment
 import com.example.marvelcharacters.databinding.FragmentCharacterListBinding
 import com.example.marvelcharacters.domain.model.MarvelCharacter
+import com.example.marvelcharacters.ui.characterdetails.CharacterDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -63,7 +65,8 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding>() {
     }
 
     private fun onCharacterClick(character: MarvelCharacter) {
-        Toast.makeText(requireContext(), character.name, Toast.LENGTH_SHORT).show()
+        val bundle = bundleOf(CharacterDetailsFragment.CHARACTER_KEY to character)
+        navController.navigate(R.id.action_characterList_to_details, bundle)
     }
 
 }
