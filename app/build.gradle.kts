@@ -68,8 +68,8 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.22")
     implementation("androidx.preference:preference-ktx:1.2.1")
@@ -81,7 +81,7 @@ dependencies {
         //exclude Kotlin stdLib to avoid conflicts with version used by the app.
         exclude("org.jetbrains.kotlin", "kotlin-stdlib-jdk8")
     }
-    implementation("io.coil-kt:coil-gif:2.4.0")
+    implementation("io.coil-kt:coil:2.4.0")
 
 
     //Hilt >>>> DON"T FORGET to use Hilt plugins too
