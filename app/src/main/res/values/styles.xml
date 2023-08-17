@@ -11,10 +11,10 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <style name="roundedBottomCornerImage10" parent="">
+    <style name="roundedTopCornerImage10" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">20dp</item>
-        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
     </style>
 
     <style name="circleImageView" parent="">
