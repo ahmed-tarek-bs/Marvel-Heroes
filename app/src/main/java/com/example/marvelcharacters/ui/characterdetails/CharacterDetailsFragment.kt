@@ -13,6 +13,7 @@ import com.example.marvelcharacters.core.base.BaseFragment
 import com.example.marvelcharacters.core.utils.parcelable
 import com.example.marvelcharacters.databinding.FragmentCharacterDetailsBinding
 import com.example.marvelcharacters.domain.model.MarvelCharacter
+import com.example.marvelcharacters.ui.characterdetails.appearancescomponent.CharacterSectionLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -43,16 +44,6 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding>()
         observeState()
     }
 
-    private fun setCharacterDetails(character: MarvelCharacter) {
-        character.let {
-            binding.apply {
-                imgCharacter.load(it.imgUrl)
-                name.text = it.name
-                description.text = it.description
-            }
-        }
-    }
-
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -65,6 +56,36 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding>()
                     }
                 }
 
+            }
+        }
+    }
+
+    private fun setCharacterDetails(character: MarvelCharacter) {
+        character.let {
+            binding.apply {
+                imgCharacter.load(it.imgUrl)
+                name.text = it.name
+                description.text = it.description
+
+                setAppearanceSection("Comics", character.comics, comicsSection)
+                setAppearanceSection("Stories", character.stories, storiesSection)
+                setAppearanceSection("Events", character.events, eventsSection)
+                setAppearanceSection("Series", character.series, seriesSection)
+            }
+        }
+    }
+
+    private fun setAppearanceSection(
+        title: String,
+        appearancesList: List<String>?,
+        sectionLayout: CharacterSectionLayout
+    ) {
+        sectionLayout.apply {
+            if (!appearancesList.isNullOrEmpty()) {
+                setTitle("$title (${appearancesList.size})")
+                submitList(appearancesList)
+            } else {
+                visibility = View.GONE
             }
         }
     }
