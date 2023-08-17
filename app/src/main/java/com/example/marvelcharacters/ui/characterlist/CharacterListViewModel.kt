@@ -29,7 +29,7 @@ class CharacterListViewModel @Inject constructor(
             characterRepository.getCharactersList()
                 .onResult { hideLoading() }
                 .onError { emitErrorUIMessage(it) }
-                .onSuccess { _heroListFlow.update(it) }
+                .onSuccess { _heroListFlow.update(it.data) }
         }
     }
 

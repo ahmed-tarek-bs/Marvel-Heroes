@@ -1,4 +1,4 @@
-package com.example.marvelcharacters.utils
+package com.example.marvelcharacters.utils.diffutils
 
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import com.example.marvelcharacters.domain.model.MarvelCharacter

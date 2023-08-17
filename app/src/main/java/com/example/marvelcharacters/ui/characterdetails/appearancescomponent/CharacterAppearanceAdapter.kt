@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marvelcharacters.databinding.ItemCharacterAppearanceBinding
-import com.example.marvelcharacters.utils.CharacterAppearanceDiffUtil
+import com.example.marvelcharacters.utils.diffutils.CharacterAppearanceDiffUtil
 
 class CharacterAppearanceAdapter :
     ListAdapter<String, CharacterAppearanceAdapter.CharacterAppearanceViewHolder>(
