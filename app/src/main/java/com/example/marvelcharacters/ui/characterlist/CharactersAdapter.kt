@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.marvelcharacters.databinding.ItemHeroBinding
 import com.example.marvelcharacters.domain.model.MarvelCharacter
-import com.example.marvelcharacters.utils.CharacterDiffIUtil
+import com.example.marvelcharacters.utils.diffutils.CharacterDiffIUtil
 
 class CharactersAdapter(
     private val onCharacterClicked: (MarvelCharacter) -> Unit

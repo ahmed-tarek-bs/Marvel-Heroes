@@ -12,7 +12,8 @@ interface CharacterService {
 
     @GET("http://gateway.marvel.com/v1/public/characters")
     suspend fun getHeroesList(
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
+        @Query("limit") pageSize: Int
     ): Response<BaseResponse<PaginatedDataDTO<CharacterDTO>>>
 
     @GET("http://gateway.marvel.com/v1/public/characters/{characterId}")

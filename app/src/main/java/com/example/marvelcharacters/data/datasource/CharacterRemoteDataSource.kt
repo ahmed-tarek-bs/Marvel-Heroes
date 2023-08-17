@@ -7,7 +7,10 @@ import com.example.marvelcharacters.data.dto.PaginatedDataDTO
 
 interface CharacterRemoteDataSource {
 
-    suspend fun getCharactersList(): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>>
+    suspend fun getCharactersList(
+        offset: Int,
+        pageSize: Int
+    ): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>>
 
     suspend fun getCharacter(characterId: String): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>>
 }

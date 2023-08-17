@@ -11,12 +11,15 @@ class CharacterApi(
     private val characterService: CharacterService
 ) : CharacterRemoteDataSource {
 
-    override suspend fun getCharactersList(): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>> {
-        return handleApi { characterService.getHeroesList(offset = 0) }
+    override suspend fun getCharactersList(
+        offset: Int,
+        pageSize: Int
+    ): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>> {
+        return handleApi { characterService.getHeroesList(offset = offset, pageSize = pageSize) }
     }
 
     override suspend fun getCharacter(characterId: String): NetworkResult<BaseResponse<PaginatedDataDTO<CharacterDTO>>> {
         return handleApi { characterService.getHeroDetails(characterId = characterId, offset = 0) }
     }
-    
+
 }
