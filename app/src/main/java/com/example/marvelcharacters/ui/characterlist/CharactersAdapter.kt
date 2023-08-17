@@ -37,7 +37,7 @@ class CharactersAdapter(
         fun bindCharacter(character: MarvelCharacter) {
             binding.apply {
                 heroName.text = character.name ?: "--"
-                character.imgUrl?.let { heroImg.load(it) }
+                character.imgUrl.portraitUrl?.let { heroImg.load(it) }
             }
         }
 

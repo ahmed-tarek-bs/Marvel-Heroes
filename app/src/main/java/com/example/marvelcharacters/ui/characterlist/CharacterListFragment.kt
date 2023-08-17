@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.marvelcharacters.R
 import com.example.marvelcharacters.core.base.BaseFragment
+import com.example.marvelcharacters.core.utils.GridItemSpacingDecorator
+import com.example.marvelcharacters.core.utils.toDp
 import com.example.marvelcharacters.databinding.FragmentCharacterListBinding
 import com.example.marvelcharacters.domain.model.MarvelCharacter
 import com.example.marvelcharacters.ui.characterdetails.CharacterDetailsFragment
@@ -46,6 +48,12 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding>() {
 
     private fun setRecyclerView() {
         binding.recyclerCharacters.apply {
+            val spaceDecorator = GridItemSpacingDecorator(
+                horizontalSpacing = 16.toDp(),
+                bottomSpacing = 16.toDp(),
+                isPaginatedList = true
+            )
+            addItemDecoration(spaceDecorator)
             adapter = charactersAdapter
         }
     }

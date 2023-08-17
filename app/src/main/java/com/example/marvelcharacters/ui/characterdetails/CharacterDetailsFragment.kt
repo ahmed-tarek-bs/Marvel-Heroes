@@ -63,7 +63,7 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding>()
     private fun setCharacterDetails(character: MarvelCharacter) {
         character.let {
             binding.apply {
-                imgCharacter.load(it.imgUrl)
+                imgCharacter.load(it.imgUrl.squareUrl)
                 name.text = it.name
                 description.text = it.description
 

@@ -20,7 +20,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_character"
@@ -29,7 +30,7 @@
                 android:layout_marginHorizontal="80dp"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 app:layout_constraintDimensionRatio="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

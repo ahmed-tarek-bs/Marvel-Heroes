@@ -8,7 +8,7 @@ data class MarvelCharacter(
     val id: Int?,
     val name: String?,
     val description: String?,
-    val imgUrl: String?,
+    val imgUrl: ImageUrl,
     val comics: List<String>?,
     val series: List<String>?,
     val stories: List<String>?,
