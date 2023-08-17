@@ -14,8 +14,11 @@ class CharacterRepositoryImpl(
     private val remoteDataSource: CharacterRemoteDataSource
 ) : CharacterRepository {
 
-    override suspend fun getCharactersList(): Resource<PaginatedData<MarvelCharacter>> {
-        return when (val networkResult = remoteDataSource.getCharactersList()) {
+    override suspend fun getCharactersList(
+        offset: Int,
+        pageSize: Int
+    ): Resource<PaginatedData<MarvelCharacter>> {
+        return when (val networkResult = remoteDataSource.getCharactersList(offset, pageSize)) {
 
             is NetworkResult.ApiError -> networkResult.createErrorResource()
 
@@ -36,7 +39,7 @@ class CharacterRepositoryImpl(
     }
 
     override suspend fun getCharacter(characterId: String): Resource<MarvelCharacter?> {
-        return when (val networkResult = remoteDataSource.getCharactersList()) {
+        return when (val networkResult = remoteDataSource.getCharacter(characterId)) {
 
             is NetworkResult.ApiError -> networkResult.createErrorResource()
 

@@ -6,7 +6,10 @@ import com.example.marvelcharacters.domain.model.PaginatedData
 
 interface CharacterRepository {
 
-    suspend fun getCharactersList(): Resource<PaginatedData<MarvelCharacter>>
+    suspend fun getCharactersList(
+        offset: Int,
+        pageSize: Int
+    ): Resource<PaginatedData<MarvelCharacter>>
 
     suspend fun getCharacter(characterId: String): Resource<MarvelCharacter?>
 
