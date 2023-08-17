@@ -2,10 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_nav_graph"
-    app:startDestination="@id/fragment_hero_list">
+    app:startDestination="@id/fragment_character_list">
 
     <fragment
-        android:id="@+id/fragment_hero_list"
-        android:name="com.example.marvelcharacters.ui.characterlist.CharacterListFragment" />
+        android:id="@+id/fragment_character_list"
+        android:name="com.example.marvelcharacters.ui.characterlist.CharacterListFragment">
+
+        <action
+            android:id="@+id/action_characterList_to_details"
+            app:destination="@id/fragment_character_details" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/fragment_character_details"
+        android:name="com.example.marvelcharacters.ui.characterdetails.CharacterDetailsFragment" />
 
 </navigation>
