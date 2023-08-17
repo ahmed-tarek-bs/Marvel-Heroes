@@ -1,5 +1,6 @@
 package com.example.marvelcharacters.data.dto
 
+import com.example.marvelcharacters.domain.model.ImageUrl
 import com.example.marvelcharacters.domain.model.MarvelCharacter
 import com.google.gson.annotations.SerializedName
 
@@ -23,7 +24,7 @@ data class CharacterDTO(
             id = id,
             name = name,
             description = description,
-            imgUrl = thumbnail?.getImageUrl(),
+            imgUrl = thumbnail?.mapToImageUrl() ?: ImageUrl(),
             comics = comics?.getAppearancesList(),
             series = series?.getAppearancesList(),
             stories = stories?.getAppearancesList(),
