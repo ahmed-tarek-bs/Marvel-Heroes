@@ -1,5 +1,6 @@
 package com.example.marvelcharacters.core.network
 
+import com.example.marvelcharacters.utils.generateMD5Hash
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -8,16 +9,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class MarvelApi(
-    private var baseURL: String,
-    private var authToken: String,
-    private var hash: String,
-    private var timeStamp: String
+    private val baseURL: String,
+    publicKey: String,
+    privateKey: String
 ) {
 
     var retrofitClient: Retrofit
 
+    private val apiKey: String
+    private val hash: String
+    private val timeStamp = System.currentTimeMillis().toString()
+
     init {
         retrofitClient = createClient()
+        apiKey = publicKey
+        hash = generateMD5Hash("$timeStamp$privateKey$publicKey")
     }
 
     private fun createClient(): Retrofit {
@@ -45,7 +51,7 @@ class MarvelApi(
 
         val modifiedUrl = originalRequest.url.newBuilder()
             .addQueryParameter("ts", timeStamp)
-            .addQueryParameter("apikey", authToken)
+            .addQueryParameter("apikey", apiKey)
             .addQueryParameter("hash", hash)
             .build()
 
