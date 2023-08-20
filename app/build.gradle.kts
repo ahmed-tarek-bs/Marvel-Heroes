@@ -24,14 +24,37 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storePassword = getValueFromLocal("CERTIFICATE_PASSWORD")
+            keyPassword = getValueFromLocal("CERTIFICATE_PASSWORD")
+            keyAlias = getValueFromLocal("CERTIFICATE_ALIAS")
+            storeFile = file("MarvelCharactersKeyStore.jks")
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+    }
+
     buildTypes {
+        getByName("debug") {
+            for (item in getDevBuildConfigFields())
+                buildConfigField("String", item.key, item.value)
+        }
+
         create("staging") {
             initWith(buildTypes.getByName("debug"))
             matchingFallbacks.add("debug")
+
+            for (item in getDevBuildConfigFields())
+                buildConfigField("String", item.key, item.value)
         }
 
         getByName("release") {
             ndk.debugSymbolLevel = "SYMBOL_TABLE"
+            signingConfig = signingConfigs.getByName("release")
+
+            for (item in getReleaseBuildConfigFields())
+                buildConfigField("String", item.key, item.value)
         }
 
         all {
@@ -40,9 +63,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            for (item in getBuildConfigFields())
-                buildConfigField("String", item.key, item.value)
         }
     }
 
@@ -61,10 +81,16 @@ android {
     }
 }
 
-fun getBuildConfigFields() = mapOf(
+fun getDevBuildConfigFields() = mapOf(
     "MARVEL_PUBLIC_KEY" to getValueFromLocal("MARVEL_PUBLIC_KEY"),
     "MARVEL_PRIVATE_KEY" to getValueFromLocal("MARVEL_PRIVATE_KEY"),
     "MARVEL_BASE_URL" to getValueFromLocal("MARVEL_BASE_URL")
+)
+
+fun getReleaseBuildConfigFields() = mapOf(
+    "MARVEL_PUBLIC_KEY" to getValueFromLocal("PRODUCTION_MARVEL_PUBLIC_KEY"),
+    "MARVEL_PRIVATE_KEY" to getValueFromLocal("PRODUCTION_MARVEL_PRIVATE_KEY"),
+    "MARVEL_BASE_URL" to getValueFromLocal("PRODUCTION_MARVEL_BASE_URL")
 )
 
 fun getValueFromLocal(key: String): String {
