@@ -45,4 +45,14 @@
         app:spanCount="2"
         tools:listitem="@layout/item_hero" />
 
+    <include
+        android:id="@+id/loading"
+        layout="@layout/layout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/recycler_characters"
+        app:layout_constraintTop_toTopOf="@id/recycler_characters"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

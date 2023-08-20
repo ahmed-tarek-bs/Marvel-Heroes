@@ -67,6 +67,12 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding>() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
 
                 launch {
+                    vmHeroList.isPageLoading.collect {
+                        handleLoading(it)
+                    }
+                }
+
+                launch {
                     vmHeroList.itemList.collect {
                         charactersAdapter.submitList(it)
                     }
@@ -74,6 +80,15 @@ class CharacterListFragment : BaseFragment<FragmentCharacterListBinding>() {
 
             }
         }
+    }
+
+    private fun handleLoading(isPageLoading: Boolean) {
+        val isInitialLoading = isPageLoading && vmHeroList.itemList.value.isNullOrEmpty()
+
+        if (isInitialLoading)
+            binding.loading.root.visibility = View.VISIBLE
+        else
+            binding.loading.root.visibility = View.GONE
     }
 
     private fun onCharacterClick(character: MarvelCharacter) {
