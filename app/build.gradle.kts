@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,6 +7,8 @@ plugins {
     id("dagger.hilt.android.plugin") //Hilt
     kotlin("kapt") //Hilt (Keep this the last item in the list)
 }
+
+val localPropertiesFile = gradleLocalProperties(rootDir)
 
 android {
     namespace = "com.example.marvelcharacters"
@@ -36,6 +40,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            for (item in getBuildConfigFields())
+                buildConfigField("String", item.key, item.value)
         }
     }
 
@@ -48,7 +55,25 @@ android {
         jvmTarget = "17"
     }
 
-    buildFeatures.viewBinding = true
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+}
+
+fun getBuildConfigFields() = mapOf(
+    "MARVEL_PUBLIC_KEY" to getValueFromLocal("MARVEL_PUBLIC_KEY"),
+    "MARVEL_PRIVATE_KEY" to getValueFromLocal("MARVEL_PRIVATE_KEY"),
+    "MARVEL_BASE_URL" to getValueFromLocal("MARVEL_BASE_URL")
+)
+
+fun getValueFromLocal(key: String): String {
+    /**
+     * Find the key in system environment variables first.
+     * If exist then return it, otherwise find it in local.properties file.
+     * This step to prevent CI/CD systems to make builds fails.
+     **/
+    return System.getenv(key) ?: localPropertiesFile.getProperty(key)
 }
 
 dependencies {
