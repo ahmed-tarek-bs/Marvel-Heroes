@@ -1,6 +1,20 @@
 # Marvel-Heroes
 A demo application that demonstrates modern android architecture with MVVM and clean architecture.
 
+## 🏃 How to run the project
+1. You should get an API Key. (https://developer.marvel.com/)
+2. Save the base url and your keys (public & private key) in your `local.properties`.
+```
+MARVEL_PUBLIC_KEY=[YOUR PUBLIC KEY]
+MARVEL_PRIVATE_KEY=[YOUR PRIVATE KEY]
+MARVEL_BASE_URL="https://gateway.marvel.com:443/v1/public/"
+
+PRODUCTION_MARVEL_PUBLIC_KEY=[YOUR PUBLIC KEY]
+PRODUCTION_MARVEL_PRIVATE_KEY=[YOUR PRIVATE KEY]
+PRODUCTION_MARVEL_BASE_URL="https://gateway.marvel.com:443/v1/public/"
+```
+3. Build and run the project
+
 ## 🏛 Architecture
 ### Clean Architecture
 The code follows Google's recommended architecture, which is a lite version of clean architecture.
@@ -37,3 +51,13 @@ The role of the UI layer (or presentation layer) is to display the application d
     - It saves app memory by reducing the data to only what's needed.
     - It adapts external data types to data types used by your app—for example, your app might use a different data type to represent dates.
     - It provides better separation of concerns—for example, members of a large team could work individually on the network and UI layers of a feature if the model class is defined beforehand.
+
+
+## ⚒ Tech Stack
+- `Clean Architecture` + `MVVM`
+- `Coroutines` + `Flow` : Asynchronous
+- `Hilt` : Dependency Injection
+- `Retrofit` : Network
+- `Coil` : Image Library
+
+- `JUnit` + `Mockito` + `Google Truth` : Testing
