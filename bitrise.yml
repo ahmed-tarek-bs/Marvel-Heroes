@@ -1,0 +1,90 @@
+format_version: "11"
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: android
+workflows:
+  build_apk:
+    summary: Run your Android unit tests and create an APK file to install your app on a device or share it with your team.
+    description: The workflow will first clone your Git repository, install Android tools, set the project's version code based on the build number, run Android lint and unit tests, build the project's APK file and save it.
+    steps:
+    - git-clone@8: {}
+    - set-java-version@1:
+        inputs:
+        - set_java_version: "17"
+    - install-missing-android-tools@3:
+        inputs:
+        - gradlew_path: $PROJECT_LOCATION/gradlew
+    - android-build@1:
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: $MODULE
+        - variant: $VARIANT
+        - cache_level: none
+    - sign-apk@1:
+        run_if: '{{getenv "BITRISEIO_ANDROID_KEYSTORE_URL" | ne ""}}'
+    - deploy-to-bitrise-io@2: {}
+  run_tests:
+    summary: Run your Android unit tests and get the test report.
+    description: The workflow will first clone your Git repository, cache your Gradle dependencies, install Android tools, run your Android unit tests and save the test report.
+    steps:
+    - git-clone@8: {}
+    - restore-gradle-cache@1: {}
+    - set-java-version@1:
+        inputs:
+        - set_java_version: "17"
+    - install-missing-android-tools@3:
+        inputs:
+        - gradlew_path: $PROJECT_LOCATION/gradlew
+    - android-build@1:
+        inputs:
+        - variant: $VARIANT
+    - android-unit-test@1:
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - variant: $VARIANT
+        - cache_level: none
+    - save-gradle-cache@1: {}
+    - deploy-to-bitrise-io@2: {}
+meta:
+  bitrise.io:
+    stack: linux-docker-android-20.04
+    machine_type_id: standard
+app:
+  envs:
+  - opts:
+      is_expand: false
+    PROJECT_LOCATION: .
+  - opts:
+      is_expand: false
+    MODULE: app
+  - opts:
+      is_expand: false
+    VARIANT: debug
+  - opts:
+      is_expand: false
+    CERTIFICATE_PASSWORD: M@RVEL
+  - opts:
+      is_expand: false
+    CERTIFICATE_ALIAS: key0
+  - opts:
+      is_expand: false
+    MARVEL_PUBLIC_KEY: '"c250ac44078fc0e29838167250436e5c"'
+  - opts:
+      is_expand: false
+    MARVEL_PRIVATE_KEY: '"115ec761bc81dd15b12a8514c005b86e012e5e35"'
+  - opts:
+      is_expand: false
+    MARVEL_BASE_URL: '"https://gateway.marvel.com:443/v1/public/"'
+  - opts:
+      is_expand: false
+    PRODUCTION_MARVEL_PUBLIC_KEY: '"c250ac44078fc0e29838167250436e5c"'
+  - opts:
+      is_expand: false
+    PRODUCTION_MARVEL_PRIVATE_KEY: '"115ec761bc81dd15b12a8514c005b86e012e5e35"'
+  - opts:
+      is_expand: false
+    PRODUCTION_MARVEL_BASE_URL: '"https://gateway.marvel.com:443/v1/public/"'
+trigger_map:
+- push_branch: dev
+  workflow: run_tests
+- pull_request_source_branch: '*'
+  workflow: run_tests
