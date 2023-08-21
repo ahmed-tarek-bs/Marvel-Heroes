@@ -41,7 +41,7 @@ class CharacterListViewModelTest {
 
     @Test
     fun `when getNextPage is called, characterList should be updated`() = runTest {
-
+        //ARRANGE
         val characters = listOf(
             MarvelCharacter(
                 id = 1,
@@ -68,20 +68,21 @@ class CharacterListViewModelTest {
         val mockedData: Resource<PaginatedData<MarvelCharacter>> =
             Resource.Success(PaginatedData(characters, null, null, null))
 
-
-
         `when`(
             repository.getCharactersList(viewModel.currentOffset, viewModel.pageSize)
         ).thenReturn(mockedData)
 
+        //ACT
         viewModel.getNextPage()
         val viewModelCharactersList = viewModel.itemList.first()
 
+        //ASSERT
         assertThat(viewModelCharactersList).containsExactlyElementsIn(characters).inOrder()
     }
 
     @Test
     fun `when getNextPage is called, characterList size should increment with the returned list size`() =
+        //ARRANGE
         runTest {
             val characters = listOf(
                 MarvelCharacter(
@@ -109,22 +110,23 @@ class CharacterListViewModelTest {
             val mockedData: Resource<PaginatedData<MarvelCharacter>> =
                 Resource.Success(PaginatedData(characters, null, null, null))
 
-
-
             `when`(
                 repository.getCharactersList(viewModel.currentOffset, viewModel.pageSize)
             ).thenReturn(mockedData)
 
+            //ACT
             val oldListSize = viewModel.itemList.value?.size ?: 0
             viewModel.getNextPage()
             val newListSize = viewModel.itemList.first()?.size ?: 0
 
+            //ASSERT
             assertThat(newListSize).isEqualTo(oldListSize + characters.size)
         }
 
     @Test
     fun `when getNextPage returns an error, itemList should not change`() =
         runTest {
+            //ARRANGE
             val mockedData: Resource<PaginatedData<MarvelCharacter>> =
                 Resource.Error(AppError.JustMessage("Network Error"))
 
@@ -132,16 +134,20 @@ class CharacterListViewModelTest {
                 repository.getCharactersList(viewModel.currentOffset, viewModel.pageSize)
             ).thenReturn(mockedData)
 
+
+            //ACT
             val oldListSize = viewModel.itemList.value?.size ?: 0
             viewModel.getNextPage()
             val newListSize = viewModel.itemList.first()?.size ?: 0
 
+            //ASSERT
             assertThat(newListSize).isEqualTo(oldListSize)
         }
 
     @Test
     fun `when getNextPage returns an error, uiMessageState should emit an error UIMessage`() =
         runTest {
+            //ARRANGE
             val mockedData: Resource<PaginatedData<MarvelCharacter>> =
                 Resource.Error(AppError.JustMessage("Network Error"))
 
@@ -149,11 +155,13 @@ class CharacterListViewModelTest {
                 repository.getCharactersList(viewModel.currentOffset, viewModel.pageSize)
             ).thenReturn(mockedData)
 
+            //ACT (Observing here should be done before calling getNextPage)
             launch {
                 val errorMessage = viewModel.uiMessageState.first()
                 assertThat(errorMessage).isInstanceOf(UIMessage.Error::class.java)
             }
 
+            //ASSERT
             launch {
                 delay(1000)
                 viewModel.getNextPage()
