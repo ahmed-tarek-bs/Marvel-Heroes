@@ -61,3 +61,8 @@ The role of the UI layer (or presentation layer) is to display the application d
 - `Coil` : Image Library
 
 - `JUnit` + `Mockito` + `Google Truth` : Testing
+
+## 🔄 CI/CD
+- Integrated with Bitrise.
+- Find in the root folder the bitrise.yml file.
+- Create a bitrise project and integrate it with the repo, import the yml file to configure the project.
